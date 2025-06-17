@@ -17,3 +17,11 @@ print(f"Loaded {len(model.vertices)} vertices and {len(model.faces)} faces")
 
 See `tests/data/cube.obj` for a simple cube model and `tests/test_model_loader.py`
 for a usage example.
+
+### Displaying a Model
+
+To view a model using `pyglet`, run the example viewer:
+
+```bash
+python examples/obj_viewer.py path/to/model.obj
+```
