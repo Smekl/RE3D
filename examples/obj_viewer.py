@@ -7,11 +7,22 @@ from src.model_loader import load_obj
 
 
 def create_vertex_list(model):
+    """Create a vertex list for the given model.
+
+    Some versions of ``pyglet`` removed ``vertex_list_indexed`` from the
+    :mod:`pyglet.graphics` module.  To remain compatible across releases we
+    create an indexed vertex list via a ``Batch``.
+    """
+
     vertices = [coord for vertex in model.vertices for coord in vertex]
     indices = [index - 1 for face in model.faces for index in face]
-    return pyglet.graphics.vertex_list_indexed(
-        len(model.vertices), indices, ("v3f/static", vertices)
+
+    batch = pyglet.graphics.Batch()
+    vertex_list = batch.add_indexed(
+        len(model.vertices), GL_TRIANGLES, None, indices, ("v3f/static", vertices)
     )
+
+    return vertex_list
 
 
 def main(path: str):
